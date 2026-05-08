@@ -1,4 +1,6 @@
 package org.example.latinocomparte.entities;
 
-public class UserEntity {
+import java.io.Serializable;
+
+public class UserEntity implements Serializable {
 }
