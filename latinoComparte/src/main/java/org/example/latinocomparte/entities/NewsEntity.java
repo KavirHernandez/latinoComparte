@@ -62,8 +62,8 @@ public class NewsEntity implements Serializable {
     @Column(name ="categoria_not", length = 20, nullable = false)
     private String categoria;
 
+    //foraneas
 
-aaaaaaa
 
 
     public NewsEntity(){
