@@ -63,7 +63,7 @@ public class NewsEntity implements Serializable {
     private String categoria;
 
 
-
+aaaaaaa
 
 
     public NewsEntity(){
