@@ -13,10 +13,11 @@ import java.io.Serializable;
 @Table(name = "usuarios")
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Size(max=15)
+    @Column(name="cedula")
+    private String cedula;
 
     @Size(max = 15)
     @Column(name = "nombre")

@@ -1,0 +1,38 @@
+package org.example.latinocomparte.models.daos;
+
+import org.aspectj.weaver.ast.Test;
+import org.example.latinocomparte.entities.TestimoniesEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface TestimoniesDao extends JpaRepository<TestimoniesDao, Long> {
+    List<TestimoniesDao> findByNombreTestContainingIgnoreCase(String nombreTest);
+    List<TestimoniesDao> findByCargoEmpresaContainingIgnoreCase(String cargoEmpresa);
+    List<TestimoniesEntity> findAllByOrderByFechaCreacionDesc();
+    List<TestimoniesEntity> findByUsuariosCedula(Long cedula);
+
+    @Query("""
+       SELECT t FROM TestimoniesEntity t
+       
+       WHERE (:nombreTest IS NULL OR :nombreTest = '' 
+       OR LOWER(t.nombreTest) 
+       LIKE LOWER(CONCAT('%', :nombreTest, '%')))
+       
+       AND (:cargoEmpresa IS NULL OR :cargoEmpresa = '' 
+       OR LOWER(t.cargoEmpresa) 
+       LIKE LOWER(CONCAT('%', :cargoEmpresa, '%')))
+       
+       AND (:cedula IS NULL 
+       OR t.usuarios.cedula = :cedula)
+       
+       """)
+    List<TestimoniesEntity> filterTestimonios(
+            @Param("nombreTest") String nombreTest,
+            @Param("cargoEmpresa") String cargoEmpresa,
+            @Param("cedula") Long cedula
+    );
+
+}

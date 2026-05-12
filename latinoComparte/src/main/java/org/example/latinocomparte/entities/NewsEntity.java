@@ -29,7 +29,7 @@ public class NewsEntity implements Serializable {
     private String titulo;
 
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 250)
     @Column(name ="resumen_not", length = 250, nullable = false)
     private String resumen;
 
@@ -48,7 +48,7 @@ public class NewsEntity implements Serializable {
     private LocalDate fechaPublicacion;
 
     @NotBlank
-    @Size(max = 100)
+    @Size(max = 50)
     @Column(name ="autor_not", length = 50, nullable = false)
     private String autor;
 
@@ -59,7 +59,7 @@ public class NewsEntity implements Serializable {
 
 
     @NotBlank
-    @Size(max = 100)
+    @Size(max = 20)
     @Column(name ="categoria_not", length = 20, nullable = false)
     private String categoria;
 
