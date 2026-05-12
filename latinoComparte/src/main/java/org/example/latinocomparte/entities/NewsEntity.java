@@ -57,13 +57,16 @@ public class NewsEntity implements Serializable {
     @Column(name ="estado_not", length = 20, nullable = false)
     private String estado;
 
+
     @NotBlank
     @Size(max = 100)
     @Column(name ="categoria_not", length = 20, nullable = false)
     private String categoria;
 
     //foraneas
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_user", nullable = false)
+    private UserEntity usuarios;
 
 
     public NewsEntity(){
