@@ -25,7 +25,7 @@ public interface ContactDao extends JpaRepository<ContactEntity, Long> {
             AND (:correo IS NULL OR :correo = '' OR LOWER(s.correo) LIKE LOWER(CONCAT('%', :correo, '%')))
             AND (:telefono IS NULL OR :telefono = '' OR LOWER(s.telefono) LIKE LOWER(CONCAT('%', :telefono, '%')))
             AND (:finalidad IS NULL OR s.finalidad = :finalidad)
-            AND (:idUsuario IS NULL OR s.usuario.id = :idUsuario)
+            AND (:idUsuario IS NULL OR s.usuario.idUser = :idUsuario)
             """)
     List<ContactEntity> filterSolicitudes(
         @Param("nombreContacto") String nombreContacto,

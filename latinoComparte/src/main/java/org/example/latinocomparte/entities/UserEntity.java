@@ -15,9 +15,9 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Size(max=15)
-    @Column(name="cedula")
-    private String cedula;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_user")
+    private Long idUser;
 
     @Size(max = 15)
     @Column(name = "nombre")

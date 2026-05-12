@@ -48,7 +48,6 @@ public class ContactEntity {
     @ManyToOne
     @JoinColumn(name = "fk_usuarios", nullable = false)
     private UserEntity usuario;
-
     public ContactEntity(){
 
     }

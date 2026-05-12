@@ -49,7 +49,9 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
-    public List<NewsEntity> filterProducts(String titulo, String autor, String categoria, Long idNoti) {
+    public List<NewsEntity> filterNews(String titulo, String autor, String categoria, Long idNoti) {
         return newsDao.filterNews(titulo, autor, categoria, idNoti);
     }
+
+
 }

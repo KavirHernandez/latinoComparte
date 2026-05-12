@@ -17,7 +17,7 @@ public interface NewsService {
     public List<NewsEntity> searchByCategoria(String categoria);
     public List<NewsEntity> searchByAutor(String autor);
 
-    List<NewsEntity> filterProducts(String titulo,
+    List<NewsEntity> filterNews(String titulo,
                                        String autor,
                                        String categoria,
                                        Long idNoti);
