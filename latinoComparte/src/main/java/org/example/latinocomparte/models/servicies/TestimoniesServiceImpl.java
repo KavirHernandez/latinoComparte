@@ -1,44 +1,48 @@
 package org.example.latinocomparte.models.servicies;
 
 import org.example.latinocomparte.entities.TestimoniesEntity;
+import org.example.latinocomparte.models.daos.TestimoniesDao;
 
 import java.util.List;
 
 public class TestimoniesServiceImpl implements TestimoniesService{
+    private final TestimoniesDao testimoniesDao;
+
+    public TestimoniesServiceImpl(TestimoniesDao testimoniesDao) {this.testimoniesDao = testimoniesDao;}
 
 
     @Override
     public List<TestimoniesEntity> listAll() {
-        return List.of();
+        return testimoniesDao.findAll();
     }
 
     @Override
     public TestimoniesEntity findById(Long id) {
-        return null;
+        return testimoniesDao.findById(id).orElseThrow(() -> new RuntimeException("Testimonies not found"));
     }
 
     @Override
     public void save(TestimoniesEntity testimonies) {
-
+        testimoniesDao.save(testimonies);
     }
 
     @Override
     public void delete(Long id) {
-
+        testimoniesDao.deleteById(id);
     }
 
     @Override
     public List<TestimoniesEntity> searchByNombre(String nombre) {
-        return List.of();
+        return testimoniesDao.findByNombreTestContainingIgnoreCase(nombre);
     }
 
     @Override
     public List<TestimoniesEntity> searchByCargo(String cargo) {
-        return List.of();
+        return testimoniesDao.findByCargoEmpresaContainingIgnoreCase(cargo);
     }
 
     @Override
     public List<TestimoniesEntity> filterTestimonies(String nombreTest, String cargo, Long idProd) {
-        return List.of();
+        return testimoniesDao.filterTestimonios(nombreTest, cargo, idProd);
     }
 }
