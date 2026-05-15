@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="pais")
+@Table(name="paises")
 public class CountryEntity {
     private static final long serialVerionUID = 1L;
     @Id
