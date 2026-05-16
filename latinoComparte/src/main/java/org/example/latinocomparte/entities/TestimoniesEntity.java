@@ -56,8 +56,8 @@ public class TestimoniesEntity implements Serializable {
     private LocalDateTime fechaCreacion;
 
     //foranea
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_user", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "id_user", nullable = true)
     private UserEntity usuarios;
 
 

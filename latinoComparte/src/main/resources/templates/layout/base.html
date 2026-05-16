@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latino Comparte Argentina</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<nav th:fragment="navbar" class="bg-gray-800 text-white px-6 py-3 flex items-center gap-2 text-sm tracking-widest shadow-md">
+    <img th:src="@{/images/logo-argentina.jpg}" alt="logo" class="h-10 w-auto mr-4">
+    <a th:href="@{/}"
+       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200 hover:bg-gray-600"
+       th:classappend="${activeMenu == 'home'} ? ' bg-gray-600' : ''">
+        <i class="fa-solid fa-house"></i>
+        <span>INICIO</span>
+    </a>
+    <a th:href="@{/noticias}"
+       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200 hover:bg-gray-600"
+       th:classappend="${activeMenu == 'noticias'} ? ' bg-gray-600' : ''">
+        <i class="fa-solid fa-newspaper"></i>
+        <span>NOTICIAS</span>
+    </a>
+    <a th:href="@{/testimonios}"
+       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-200 hover:bg-gray-600"
+       th:classappend="${activeMenu == 'testimonios'} ? ' bg-gray-600' : ''">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span>TESTIMONIOS</span>
+    </a>
+</nav>
+
+<body>
+</body>
+</html>

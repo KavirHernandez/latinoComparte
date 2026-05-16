@@ -2,9 +2,11 @@ package org.example.latinocomparte.models.servicies;
 
 import org.example.latinocomparte.entities.TestimoniesEntity;
 import org.example.latinocomparte.models.daos.TestimoniesDao;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TestimoniesServiceImpl implements TestimoniesService{
     private final TestimoniesDao testimoniesDao;
 

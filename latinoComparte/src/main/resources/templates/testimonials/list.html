@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head">
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-10">
+
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Testimonios</h1>
+            <a th:href="@{/testimonios/nuevo}"
+               class="bg-gray-800 text-white px-5 py-2 rounded-lg text-sm tracking-widest hover:bg-gray-600 transition duration-200">
+                + NUEVO
+            </a>
+        </div>
+
+        <div th:if="${#lists.isEmpty(testimonios)}"
+             class="text-center text-gray-400 py-20 text-lg">
+            No hay testimonios registrados aún.
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="t : ${testimonios}"
+                 class="bg-white rounded-2xl shadow p-6 flex flex-col gap-3">
+
+                <div class="flex items-center gap-4">
+                    <img th:if="${t.imagenUrl != null and !#strings.isEmpty(t.imagenUrl)}"
+                         th:src="${t.imagenUrl}" alt="foto"
+                         class="w-14 h-14 rounded-full object-cover border-2 border-gray-200">
+                    <div th:if="${t.imagenUrl == null or #strings.isEmpty(t.imagenUrl)}"
+                         class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xl">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800" th:text="${t.nombreTest}"></p>
+                        <p class="text-sm text-gray-500" th:text="${t.cargoEmpresa}"></p>
+                    </div>
+                </div>
+
+                <p class="text-gray-600 text-sm italic" th:text="'&quot;' + ${t.opinion} + '&quot;'"></p>
+
+                <div class="flex gap-3 text-gray-400 text-sm">
+                    <a th:if="${t.instagramUrl != null and !#strings.isEmpty(t.instagramUrl)}"
+                       th:href="${t.instagramUrl}" target="_blank"
+                       class="hover:text-pink-500 transition">
+                        <i class="fa-brands fa-instagram"></i> Instagram
+                    </a>
+                    <a th:if="${t.facebookUrl != null and !#strings.isEmpty(t.facebookUrl)}"
+                       th:href="${t.facebookUrl}" target="_blank"
+                       class="hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </a>
+                </div>
+
+                <div class="flex gap-2 mt-auto pt-3 border-t border-gray-100">
+                    <a th:href="@{/testimonios/editar/{id}(id=${t.idTest})}"
+                       class="flex-1 text-center bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm hover:bg-gray-200 transition">
+                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                    </a>
+                    <a th:href="@{/testimonios/eliminar/{id}(id=${t.idTest})}"
+                       onclick="return confirm('¿Eliminar este testimonio?')"
+                       class="flex-1 text-center bg-red-50 text-red-600 px-3 py-2 rounded-lg text-sm hover:bg-red-100 transition">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
