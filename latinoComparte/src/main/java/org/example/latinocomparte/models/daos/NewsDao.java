@@ -10,7 +10,6 @@ public interface NewsDao extends JpaRepository<NewsEntity, Long> {
     List<NewsEntity> findByTituloContainingIgnoreCase(String titulo);
     List<NewsEntity> findByCategoriaContainingIgnoreCase(String categoria);
     List<NewsEntity> findByAutorContainingIgnoreCase(String autor);
-    List<NewsEntity> findAllByOrderByFechaPublicacionAsc();
     @Query("""
         SELECT n FROM NewsEntity n
         WHERE (:titulo IS NULL OR :titulo = '' 
