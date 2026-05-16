@@ -4,9 +4,7 @@ import org.example.latinocomparte.entities.NewsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.util.List;
-import java.util.Optional;
 
 public interface NewsDao extends JpaRepository<NewsEntity, Long> {
     List<NewsEntity> findByTituloContainingIgnoreCase(String titulo);
@@ -24,14 +22,10 @@ public interface NewsDao extends JpaRepository<NewsEntity, Long> {
         AND (:idNoti IS NULL 
             OR n.idNoti = :idNoti)
         """)
-
     List<NewsEntity> filterNews(
             @Param("titulo") String titulo,
             @Param("autor") String autor,
             @Param("categoria") String categoria,
             @Param("idNoti") Long idNoti
     );
-
-
-
 }
