@@ -1,0 +1,19 @@
+/* ====== RESETEO BÁSICO ====== */
+* { box-sizing: border-box; }  /* reseteo básico de box-sizing, significa que el padding y border se suman al ancho/alto */
+html, body { height: 100%; }   /* reseteo de altura del html y body para que ocupen */
+.site-header{
+
+    background: #787474;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    gap: 20px;
+}
+
+.logo{
+    height: 80px;
+    inline-size: auto;
+    display: block;
+}
