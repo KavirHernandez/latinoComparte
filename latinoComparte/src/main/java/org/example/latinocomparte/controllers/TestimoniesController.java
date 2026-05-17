@@ -22,7 +22,7 @@ public class TestimoniesController {
     public String list(Model model) {
         model.addAttribute("activeMenu", "testimonios");
         model.addAttribute("testimonios", testimoniesService.listAll());
-        return "listTestimonies";
+        return "testimonies/listTestimonies";
     }
 
     @GetMapping("/nuevo")
