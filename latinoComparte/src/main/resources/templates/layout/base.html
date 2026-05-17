@@ -45,13 +45,20 @@
         <span>CONTACTOS</span>
     </a>
 
-    <a th:href="@{/login}"
-       class="ml-auto flex items-center gap-2 px-4 py-2 rounded-lg transition duration-300
-              hover:bg-gradient-to-r hover:from-fuchsia-600 hover:to-purple-600
-              hover:text-white hover:scale-105"
-       th:classappend="${activeMenu == 'login'} ? ' bg-gradient-to-r from-fuchsia-700 to-purple-700 text-white shadow-lg' : ''">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <span>LOGIN</span>
+    <span th:if="${session.usuario != null}" class="ml-auto flex items-center gap-2">
+        <i class="fa-solid fa-user"></i>
+            <span th:text="${session.usuario.nombre}"></span>
+
+        <a th:href="@{/logout}"
+       class="ml-3 text-red-600 hover:underline">
+        SALIR
+         </a>
+    </span>
+
+    <a th:if="${session.usuario == null}"
+       th:href="@{/login}"
+       class="ml-auto">
+        LOGIN
     </a>
 
 </nav>

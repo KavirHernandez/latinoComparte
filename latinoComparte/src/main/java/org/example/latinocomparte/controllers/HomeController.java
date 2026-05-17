@@ -11,4 +11,6 @@ public class HomeController {
         model.addAttribute("activeMenu", "home");
         return "home/home";
     }
+
+
 }

@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao extends JpaRepository<UserEntity, Long> {
-
-    Optional<UserEntity> findByEmail(String email);
+    UserEntity findByEmail(String email);
 
     List<UserEntity> findByNombreContainingIgnoreCase(String nombre);
 
@@ -19,5 +18,6 @@ public interface UserDao extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findByRolIdRol(Long idRol);
 
     List<UserEntity> findByCountryIdCountry(Long idCountry);
+
 
 }

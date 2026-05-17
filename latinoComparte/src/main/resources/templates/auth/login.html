@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head">
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen">
+
+<nav th:replace="layout/base :: navbar"></nav>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+  <h1 class="text-3xl font-bold text-gray-800">LOGIN</h1>
+</main>
 
 </body>
 </html>

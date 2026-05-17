@@ -35,9 +35,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserEntity> findByEmail(String email) {
+    public UserEntity findByEmail(String email) {
         return userDao.findByEmail(email);
     }
+
 
     @Override
     public List<UserEntity> searchByNombre(String nombre) {
@@ -63,4 +64,9 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> findByCountry(Long idCountry) {
         return userDao.findByCountryIdCountry(idCountry);
     }
+
+
+
+
+
 }

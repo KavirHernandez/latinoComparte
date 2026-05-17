@@ -15,7 +15,7 @@ public interface UserService {
 
     public void delete(Long id);
 
-    public Optional<UserEntity> findByEmail(String email);
+    public UserEntity findByEmail(String email);
 
     public List<UserEntity> searchByNombre(String nombre);
 
@@ -26,4 +26,6 @@ public interface UserService {
     public List<UserEntity> findByRol(Long idRol);
 
     public List<UserEntity> findByCountry(Long idCountry);
+
+
 }
