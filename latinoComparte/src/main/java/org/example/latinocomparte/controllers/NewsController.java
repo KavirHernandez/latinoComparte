@@ -10,6 +10,6 @@ public class NewsController {
     @GetMapping("/noticias")
     public String noticias(Model model) {
         model.addAttribute("activeMenu", "noticias");
-        return "news/list";
+        return "listNews";
     }
 }
