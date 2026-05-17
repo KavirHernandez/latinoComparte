@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/testimonios")
-public class TestimoniosController {
+public class TestimoniesController {
 
     private final TestimoniesService testimoniesService;
 
-    public TestimoniosController(TestimoniesService testimoniesService) {
+    public TestimoniesController(TestimoniesService testimoniesService) {
         this.testimoniesService = testimoniesService;
     }
 
@@ -22,14 +22,14 @@ public class TestimoniosController {
     public String list(Model model) {
         model.addAttribute("activeMenu", "testimonios");
         model.addAttribute("testimonios", testimoniesService.listAll());
-        return "testimonials/list";
+        return "testimonies/list";
     }
 
     @GetMapping("/nuevo")
     public String newForm(Model model) {
         model.addAttribute("activeMenu", "testimonios");
         model.addAttribute("testimonio", new TestimoniesEntity());
-        return "testimonials/form";
+        return "testimonies/form";
     }
 
     @PostMapping("/guardar")
@@ -45,7 +45,7 @@ public class TestimoniosController {
     public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute("activeMenu", "testimonios");
         model.addAttribute("testimonio", testimoniesService.findById(id));
-        return "testimonials/form";
+        return "testimonies/form";
     }
 
     @PostMapping("/actualizar")

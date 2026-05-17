@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class NoticiasController {
+public class NewsController {
 
     @GetMapping("/noticias")
     public String noticias(Model model) {
