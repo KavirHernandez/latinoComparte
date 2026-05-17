@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/base :: head">
-</head>
-<body class="bg-gray-100 min-h-screen">
+<head th:replace="layout/base :: head"></head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-<nav th:replace="layout/base :: navbar"></nav>
+    <div class="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md">
 
-<main class="max-w-7xl mx-auto px-6 py-10">
-  <h1 class="text-3xl font-bold text-gray-800">LOGIN</h1>
-</main>
+        <div class="flex flex-col items-center mb-8">
+            <img th:src="@{/images/logo-argentina.jpg}" alt="logo" class="h-20 w-auto mb-4">
+            <h1 class="text-2xl font-bold text-purple-800 tracking-widest">LATINO COMPARTE</h1>
+            <p class="text-gray-500 text-sm mt-1">Ingresá con tu cuenta</p>
+        </div>
+
+        <div th:if="${error}"
+             class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <i class="fa-solid fa-circle-exclamation mr-2"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <form th:action="@{/login}" method="post" class="space-y-5">
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                    <i class="fa-solid fa-envelope mr-1"></i> Correo electrónico
+                </label>
+                <input type="email"
+                       name="email"
+                       required
+                       placeholder="ejemplo@correo.com"
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm
+                              focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                    <i class="fa-solid fa-lock mr-1"></i> Contraseña
+                </label>
+                <input type="password"
+                       name="contrasena"
+                       required
+                       placeholder="••••••••"
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm
+                              focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-gradient-to-r from-fuchsia-600 to-purple-700 text-white font-bold
+                           py-2 rounded-lg hover:from-fuchsia-700 hover:to-purple-800 transition duration-300
+                           tracking-widest text-sm">
+                INGRESAR
+            </button>
+
+        </form>
+
+    </div>
 
 </body>
 </html>

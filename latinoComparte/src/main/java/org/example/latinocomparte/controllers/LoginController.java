@@ -17,12 +17,10 @@ public class LoginController {
     private UserService userService;
     @GetMapping("/login")
     public String login(HttpSession session) {
-
         if (session.getAttribute("usuario") != null) {
-            return "redirect:/home";
+            return "redirect:/";
         }
-
-        return "login";
+        return "auth/login";
     }
 
 
@@ -36,23 +34,22 @@ public class LoginController {
 
         if (user == null) {
             model.addAttribute("error", "Usuario no encontrado");
-            return "login";
+            return "auth/login";
         }
 
         if (!user.isEstadoUsu()) {
             model.addAttribute("error", "Usuario desactivado");
-            return "login";
+            return "auth/login";
         }
 
         if (!user.getContrasena().equals(contrasena)) {
             model.addAttribute("error", "Contraseña incorrecta");
-            return "login";
+            return "auth/login";
         }
 
-        // ✅ GUARDAR USUARIO EN SESIÓN
         session.setAttribute("usuario", user);
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
