@@ -1,6 +1,5 @@
 package org.example.latinocomparte.models.servicies;
 
-
 import org.example.latinocomparte.entities.ContactEntity;
 import org.example.latinocomparte.models.daos.ContactDao;
 import org.springframework.stereotype.Service;
@@ -8,7 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ContactServiceImpl implements  ContactService{
+public class ContactServiceImpl implements ContactService {
+
     private final ContactDao contactDao;
 
     public ContactServiceImpl(ContactDao contactDao) {
@@ -22,17 +22,17 @@ public class ContactServiceImpl implements  ContactService{
 
     @Override
     public ContactEntity findById(Long id) {
-        return contactDao.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
+        return contactDao.findById(id).orElseThrow(() -> new RuntimeException("Solicitud de contacto no encontrada con ID: " + id));
     }
 
     @Override
     public void save(ContactEntity contact) {
-      contactDao.save(contact);
+        contactDao.save(contact);
     }
 
     @Override
     public void delete(Long id) {
-     contactDao.deleteById(id);
+        contactDao.deleteById(id);
     }
 
     @Override
@@ -41,7 +41,9 @@ public class ContactServiceImpl implements  ContactService{
     }
 
     @Override
-    public List<ContactEntity> filterSolicitudes(String nombreContacto, String correo, String telefono, ContactEntity.Finalidad finalidad, Long idUsuario) {
-      return contactDao.filterSolicitudes(nombreContacto,correo,telefono,finalidad,idUsuario);
+    public List<ContactEntity> filterSolicitudes(String nombreContacto, String correo,
+                                                  String telefono, ContactEntity.Finalidad finalidad,
+                                                  Long idUsuario) {
+        return contactDao.filterSolicitudes(nombreContacto, correo, telefono, finalidad, idUsuario);
     }
 }

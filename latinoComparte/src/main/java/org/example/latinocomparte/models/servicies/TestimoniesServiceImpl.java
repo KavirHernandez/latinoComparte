@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TestimoniesServiceImpl implements TestimoniesService{
+public class TestimoniesServiceImpl implements TestimoniesService {
+
     private final TestimoniesDao testimoniesDao;
 
-    public TestimoniesServiceImpl(TestimoniesDao testimoniesDao) {this.testimoniesDao = testimoniesDao;}
-
+    public TestimoniesServiceImpl(TestimoniesDao testimoniesDao) {
+        this.testimoniesDao = testimoniesDao;
+    }
 
     @Override
     public List<TestimoniesEntity> listAll() {
@@ -20,13 +22,15 @@ public class TestimoniesServiceImpl implements TestimoniesService{
 
     @Override
     public TestimoniesEntity findById(Long id) {
-        return testimoniesDao.findById(id).orElseThrow(() -> new RuntimeException("Testimonies not found"));
+        return testimoniesDao.findById(id).orElseThrow(() -> new RuntimeException("Testimonio no encontrado con ID: " + id));
     }
+
 
     @Override
     public void save(TestimoniesEntity testimonies) {
         testimoniesDao.save(testimonies);
     }
+
 
     @Override
     public void delete(Long id) {

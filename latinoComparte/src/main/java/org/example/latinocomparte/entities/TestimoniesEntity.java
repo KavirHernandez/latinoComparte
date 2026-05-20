@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 @Entity
 @Data
 @Table(name="testimonios")
@@ -37,38 +38,27 @@ public class TestimoniesEntity implements Serializable {
     private String cargoEmpresa;
 
     @Size(max = 200)
-    @Column (name = "imagen_url", length = 200)
+    @Column(name = "imagen_url", length = 200)
     private String imagenUrl;
 
-    @NotBlank
     @Size(max=250)
-    @Column(name = "instagram_Uurl", length = 250, nullable = false)
+    @Column(name = "instagram_Uurl", length = 250)
     private String instagramUrl;
 
-    @NotBlank
     @Size(max=250)
-    @Column(name = "facebook", length = 250, nullable = false)
+    @Column(name = "facebook", length = 250)
     private String facebookUrl;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy,MM,dd")
     @Column(name="fecha_creacion", nullable = false)
-    private LocalDateTime fechaCreacion;
+    private LocalDate fechaCreacion;
 
-    //foranea
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "id_user", nullable = true)
     private UserEntity usuarios;
 
-
-
     public TestimoniesEntity(){
 
     }
-
-
-
-
-
-
 }

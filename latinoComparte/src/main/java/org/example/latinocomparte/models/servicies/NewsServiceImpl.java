@@ -2,15 +2,18 @@ package org.example.latinocomparte.models.servicies;
 
 import org.example.latinocomparte.entities.NewsEntity;
 import org.example.latinocomparte.models.daos.NewsDao;
-import org.example.latinocomparte.models.daos.RoleDao;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class NewsServiceImpl implements NewsService{
+@Service
+public class NewsServiceImpl implements NewsService {
 
     private final NewsDao newsDao;
 
-    public NewsServiceImpl(NewsDao newsDao) {this.newsDao = newsDao;}
+    public NewsServiceImpl(NewsDao newsDao) {
+        this.newsDao = newsDao;
+    }
 
     @Override
     public List<NewsEntity> listAll() {
@@ -18,9 +21,15 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
+    public List<NewsEntity> listPublicadas() {
+        return newsDao.findByEstado("PUBLICADO");
+    }
+
+
+    @Override
     public NewsEntity findById(Long id) {
         return newsDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("News not found"));
+                .orElseThrow(() -> new RuntimeException("Noticia no encontrada con ID: " + id));
     }
 
     @Override
@@ -48,10 +57,9 @@ public class NewsServiceImpl implements NewsService{
         return newsDao.findByAutorContainingIgnoreCase(autor);
     }
 
+
     @Override
     public List<NewsEntity> filterNews(String titulo, String autor, String categoria, Long idNoti) {
         return newsDao.filterNews(titulo, autor, categoria, idNoti);
     }
-
-
 }

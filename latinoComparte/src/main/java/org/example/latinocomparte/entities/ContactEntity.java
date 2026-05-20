@@ -1,18 +1,16 @@
 package org.example.latinocomparte.entities;
 
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-
 import java.time.LocalDateTime;
+
 
 @Entity
 @Data
 @Table(name = "contactos")
-
 public class ContactEntity {
 
     private static final long serialVersionUID = 1L;
@@ -44,19 +42,16 @@ public class ContactEntity {
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion;
 
-
     @ManyToOne
-    @JoinColumn(name = "fk_usuarios", nullable = false)
+    @JoinColumn(name = "fk_usuarios", nullable = true)
     private UserEntity usuario;
-    public ContactEntity(){
 
+    public ContactEntity() {
     }
 
-    public enum Finalidad{
-        SERVICIO,
-        PROGRAMA_EDIFICA,
-        SHOWS_Y_CONFERENCIAS
+    public enum Finalidad {
+        SERVICIO,               // Consulta sobre servicios generales
+        PROGRAMA_EDIFICA,       // Interés en el programa EDIFICA
+        SHOWS_Y_CONFERENCIAS    // Contratación de shows o conferencias
     }
-
-
 }

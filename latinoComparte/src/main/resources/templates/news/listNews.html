@@ -1,14 +1,117 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/base :: head">
-</head>
-<body class="bg-gray-100 min-h-screen">
+<head th:replace="layout/base :: head"></head>
+<!--
+    LISTA DE NOTICIAS: muestra las noticias del portal.
+    - ADMINISTRADORES: ven todas (borradores + publicadas) con botones CRUD.
+    - INVITADOS/Visitantes: solo ven las noticias publicadas, sin botones de gestión.
+    Implementa HU-11 y HU-14.
+-->
+<body class="bg-gray-50 min-h-screen">
 
     <nav th:replace="layout/base :: navbar"></nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-10">
-        <h1 class="text-3xl font-bold text-gray-800">Noticias</h1>
+    <!-- Encabezado de sección -->
+    <section class="bg-gradient-to-br from-orange-600 to-purple-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <div>
+                <h1 class="text-4xl font-extrabold">ACTUALIDAD</h1>
+                <p class="text-white opacity-80 mt-2 text-lg">Últimas noticias y proyectos de Argentina Comparte</p>
+            </div>
+            <!--
+                Botón "+ NUEVA NOTICIA": SOLO visible para ADMINISTRADORES.
+                Los invitados no lo ven.
+            -->
+            <a th:if="${session.usuario != null and session.usuario.rol != null and session.usuario.rol.rol != 'INVITADO'}"
+               th:href="@{/noticias/nuevo}"
+               class="bg-white text-black font-bold px-6 py-2 rounded-full hover:scale-105 transition text-sm shadow">
+                + NUEVA NOTICIA
+            </a>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+
+        <!--
+            Banner de acceso denegado para invitados que intentan acciones restringidas.
+            Aparece cuando la URL tiene el parámetro ?accesoDenegado=true
+        -->
+        <div th:if="${param.accesoDenegado}"
+             class="mb-6 bg-yellow-50 border border-yellow-300 text-yellow-800 px-5 py-4 rounded-xl flex items-center gap-3">
+            <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-xl"></i>
+            <div>
+                <p class="font-bold">Acceso restringido</p>
+                <p class="text-sm">Esta función está disponible solo para administradores.</p>
+            </div>
+        </div>
+
+        <!-- Mensaje cuando no hay noticias disponibles -->
+        <div th:if="${#lists.isEmpty(noticias)}"
+             class="text-center text-gray-400 py-20 text-lg">
+            No hay noticias registradas aún.
+        </div>
+
+        <!-- Grid de tarjetas de noticias -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div th:each="n : ${noticias}"
+                 class="bg-white rounded-2xl shadow hover:shadow-xl transition duration-300 overflow-hidden flex flex-col">
+
+                <!-- Imagen de portada de la noticia -->
+                <img th:if="${n.imagenUrl != null and !#strings.isEmpty(n.imagenUrl)}"
+                     th:src="${n.imagenUrl}" alt="noticia"
+                     class="w-full h-48 object-cover">
+                <!-- Placeholder si no hay imagen -->
+                <div th:if="${n.imagenUrl == null or #strings.isEmpty(n.imagenUrl)}"
+                     class="w-full h-48 bg-gradient-to-br from-orange-100 to-yellow-100 flex items-center justify-center text-4xl text-orange-300">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+
+                <div class="p-6 flex flex-col flex-1">
+                    <!-- Badge de estado (solo visible para admin) -->
+                    <div th:if="${session.usuario != null and session.usuario.rol != null and session.usuario.rol.rol != 'INVITADO'}"
+                         class="mb-2">
+                        <span th:text="${n.estado}"
+                              th:classappend="${n.estado == 'PUBLICADO'} ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'"
+                              class="text-xs font-bold px-2 py-1 rounded-full">
+                        </span>
+                    </div>
+
+                    <!-- Título de la noticia -->
+                    <h3 class="text-lg font-bold text-gray-800" th:text="${n.titulo}"></h3>
+                    <!-- Fecha de publicación y autor -->
+                    <p class="text-xs text-gray-400 mt-1 mb-3"
+                       th:text="${n.fechaPublicacion} + ' · ' + ${n.autor}"></p>
+                    <!-- Resumen de la noticia -->
+                    <p class="text-sm text-gray-600 leading-relaxed flex-1" th:text="${n.resumen}"></p>
+
+                    <!-- Botón VER NOTICIA: enlace al detalle completo -->
+                    <a th:href="@{/noticias/{id}(id=${n.idNoti})}"
+                       class="mt-4 inline-block text-orange-500 hover:text-orange-700 text-sm font-semibold transition">
+                        Ver noticia <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+
+                    <!--
+                        Botones Editar y Eliminar: SOLO para ADMINISTRADORES.
+                        Los invitados NO ven estos botones.
+                    -->
+                    <div th:if="${session.usuario != null and session.usuario.rol != null and session.usuario.rol.rol != 'INVITADO'}"
+                         class="flex gap-2 mt-3 pt-3 border-t border-gray-100">
+                        <a th:href="@{/noticias/editar/{id}(id=${n.idNoti})}"
+                           class="flex-1 text-center bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg text-xs hover:bg-gray-200 transition">
+                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                        </a>
+                        <a th:href="@{/noticias/eliminar/{id}(id=${n.idNoti})}"
+                           onclick="return confirm('¿Eliminar esta noticia?')"
+                           class="flex-1 text-center bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-xs hover:bg-red-100 transition">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
+    <footer th:replace="layout/base :: footer"></footer>
 </body>
 </html>

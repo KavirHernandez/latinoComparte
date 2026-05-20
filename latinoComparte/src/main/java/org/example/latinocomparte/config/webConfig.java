@@ -14,13 +14,15 @@ public class webConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
+                // Intercepta TODAS las rutas...
                 .addPathPatterns("/**")
+                // ...excepto las que son públicas (no requieren login)
                 .excludePathPatterns(
-                        "/login",
-                        "/login/**",
-                        "/css/**",
-                        "/js/**",
-                        "/images/**"
+                        "/login",           // Página de login
+                        "/login/**",        // Sub-rutas de login (ej: /login/invitado)
+                        "/css/**",          // Recursos estáticos CSS
+                        "/js/**",           // Recursos estáticos JavaScript
+                        "/images/**"        // Imágenes estáticas
                 );
     }
 }

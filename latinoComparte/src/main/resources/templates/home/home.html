@@ -1,14 +1,463 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/base :: head">
-</head>
-<body class="bg-gray-100 min-h-screen">
+<head th:replace="layout/base :: head"></head>
+<body class="bg-white min-h-screen">
 
     <nav th:replace="layout/base :: navbar"></nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-10">
-        <h1 class="text-3xl font-bold text-gray-800">Bienvenido a Latino Comparte</h1>
-    </main>
+    <!-- ===== SECCIÓN 1: CARRUSEL / BANNERS ===== -->
+    <section class="relative overflow-hidden" id="carrusel">
+        <div id="slides" class="flex transition-transform duration-700 ease-in-out">
+
+            <!-- SLIDE 1 – Emprendimiento como motor de vida -->
+            <div class="slide min-w-full relative bg-gradient-to-br from-orange-600 to-purple-600  text-white">
+                <div class="max-w-5xl mx-auto px-8 py-24 flex flex-col gap-6">
+                    <span class="text-sm font-semibold tracking-widest uppercase opacity-80">Emprendimiento como motor de vida</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight max-w-2xl">
+                        Creamos oportunidades reales para que personas y familias vuelvan a ser productivas.
+                    </h1>
+                    <p class="text-xl md:text-2xl font-light max-w-xl opacity-90">
+                        EDIFICA: el programa de emprendimiento que transforma sueños en negocios sostenibles.
+                    </p>
+                    <div class="mt-4">
+                        <a href="https://argentinacomparte.com/programa-edifica/"
+                           target="_blank"
+                           class="inline-block bg-white text-black font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition duration-300 text-sm tracking-wide">
+                            👉 Quiero emprender
+                        </a>
+                    </div>
+                </div>
+                <!-- Decorative circle -->
+                <div class="absolute right-0 top-0 w-80 h-80 bg-white opacity-10 rounded-full -translate-y-1/3 translate-x-1/4"></div>
+                <div class="absolute right-32 bottom-0 w-52 h-52 bg-white opacity-10 rounded-full translate-y-1/2"></div>
+            </div>
+
+            <!-- SLIDE 2 – Bienestar dentro y fuera de la empresa -->
+            <div class="slide min-w-full relative bg-gradient-to-br from-purple-700 via-fuchsia-600 to-pink-500 text-white">
+                <div class="max-w-5xl mx-auto px-8 py-24 flex flex-col gap-6">
+                    <span class="text-sm font-semibold tracking-widest uppercase opacity-80">Bienestar dentro y fuera de la empresa</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight max-w-2xl">
+                        Transformamos personas para transformar empresas.
+                    </h1>
+                    <p class="text-xl md:text-2xl font-light max-w-xl opacity-90">
+                        Acompañamos a las organizaciones fortaleciendo cultura, liderazgo y productividad humana.
+                    </p>
+                    <div class="mt-4">
+                        <a href="mailto:eduardodelcastillo@argentinacomparte.com"
+                           class="inline-block bg-white text-black font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition duration-300 text-sm tracking-wide">
+                            👉 Quiero más información
+                        </a>
+                    </div>
+                </div>
+                <div class="absolute right-0 top-0 w-80 h-80 bg-white opacity-10 rounded-full -translate-y-1/3 translate-x-1/4"></div>
+            </div>
+
+            <!-- SLIDE 3 – 10 años transformando vidas -->
+            <div class="slide min-w-full relative bg-gradient-to-br from-blue-600 to-green-400 text-white">
+                <div class="max-w-5xl mx-auto px-8 py-24 flex flex-col gap-6">
+                    <span class="text-sm font-semibold tracking-widest uppercase opacity-80">10 años transformando vidas</span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight max-w-2xl">
+                        Una década reconstruyendo propósito, productividad y esperanza.
+                    </h1>
+                    <p class="text-xl md:text-2xl font-light max-w-xl opacity-90">
+                        Más de 1.200 familias en Argentina han vuelto a levantarse gracias a un propósito que transforma desde el ser.
+                    </p>
+                    <div class="mt-4 flex items-center gap-4">
+                        <a th:href="@{/nuestra-historia}"
+                           class="inline-block bg-white text-black font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition duration-300 text-sm tracking-wide">
+                            👉 Conoce nuestra historia
+                        </a>
+                        <span class="bg-yellow-400 text-gray-900 font-black text-lg px-4 py-2 rounded-xl shadow-lg border-2 border-yellow-300">
+                            🏆 10 AÑOS
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute right-0 top-0 w-80 h-80 bg-white opacity-10 rounded-full -translate-y-1/3 translate-x-1/4"></div>
+            </div>
+        </div>
+
+        <!-- Controles del carrusel -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-60 text-white rounded-full w-10 h-10 flex items-center justify-center transition duration-200 shadow">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-60 text-white rounded-full w-10 h-10 flex items-center justify-center transition duration-200 shadow">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Indicadores -->
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+            <button onclick="goToSlide(0)" class="dot w-3 h-3 rounded-full bg-white opacity-60 hover:opacity-100 transition" id="dot-0"></button>
+            <button onclick="goToSlide(1)" class="dot w-3 h-3 rounded-full bg-white opacity-60 hover:opacity-100 transition" id="dot-1"></button>
+            <button onclick="goToSlide(2)" class="dot w-3 h-3 rounded-full bg-white opacity-60 hover:opacity-100 transition" id="dot-2"></button>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN 2: A QUIÉNES ACOMPAÑAMOS ===== -->
+    <section class="py-20 bg-gray-50" id="a-quienes">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-3">A QUIÉNES ACOMPAÑAMOS</h2>
+                <p class="text-gray-500 text-lg max-w-2xl mx-auto">
+                    En Argentina Comparte impulsamos el progreso humano y productivo dentro y fuera de la empresa.
+                </p>
+                <p class="text-gray-600 mt-2 font-medium">Acompañamos a tres públicos principales:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Tarjeta 1: Personas y familias -->
+                <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-4 border-t-4 border-orange-400 hover:shadow-xl transition duration-300">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center text-2xl text-orange-500">
+                        <i class="fa-solid fa-people-roof"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Personas y familias en procesos de reconstrucción económica</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        La llamada <em>pobreza oculta</em> o pobreza vergonzante, esa que no está en las calles.
+                        Vive en hogares donde un cambio inesperado —una quiebra, un despido, una enfermedad— desordena la vida y la autoestima.
+                    </p>
+                    <p class="text-gray-700 font-semibold text-sm">
+                        A estas familias les damos lo más valioso: <strong>una oportunidad real para volver a levantarse</strong>, recuperar su productividad y reconstruir su futuro desde el emprendimiento.
+                    </p>
+                    <a href="https://argentinacomparte.com/programa-edifica/" target="_blank"
+                       class="mt-auto inline-block text-center bg-orange-500 text-white font-bold px-6 py-2 rounded-full hover:bg-orange-600 transition text-sm">
+                        👉 Ver más
+                    </a>
+                </div>
+
+                <!-- Tarjeta 2: Emprendedores -->
+                <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-4 border-t-4 border-yellow-400 hover:shadow-xl transition duration-300">
+                    <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center text-2xl text-yellow-500">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Emprendedores que quieren crear o fortalecer su negocio</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        A través de <strong>EDIFICA</strong>, nuestro Programa de Altos Estudios en Emprendimiento, las personas reciben:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i>Mentoría</li>
+                        <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i>Crecimiento personal</li>
+                        <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i>Estrategia y Finanzas</li>
+                        <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i>Marketing</li>
+                        <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i>Modelo de negocio</li>
+                        <li><i class="fa-solid fa-check text-yellow-400 mr-2"></i>Acompañamiento real y humano</li>
+                    </ul>
+                    <p class="text-gray-700 font-semibold text-sm">EDIFICA no solo enseña a emprender. <strong>Enseña a creer en uno mismo.</strong></p>
+                    <a href="https://argentinacomparte.com/programa-edifica/" target="_blank"
+                       class="mt-auto inline-block text-center bg-yellow-400 text-gray-900 font-bold px-6 py-2 rounded-full hover:bg-yellow-500 transition text-sm">
+                        👉 Quiero emprender
+                    </a>
+                </div>
+
+                <!-- Tarjeta 3: Empresas -->
+                <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-4 border-t-4 border-purple-500 hover:shadow-xl transition duration-300">
+                    <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center text-2xl text-purple-500">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Empresas comprometidas con su gente</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Apoyamos a las organizaciones a fortalecer:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Cultura y Bienestar</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Liderazgo</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Productividad humana</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Vinculación emocional</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Sentido de propósito</li>
+                    </ul>
+                    <p class="text-gray-600 text-sm">Ya sea acompañando <strong>a los colaboradores</strong> o <strong>a sus familias</strong>, ayudamos a construir equipos con mayor compromiso y desempeño.</p>
+                    <a href="#empresas"
+                       class="mt-auto inline-block text-center bg-purple-600 text-white font-bold px-6 py-2 rounded-full hover:bg-purple-700 transition text-sm">
+                        👉 Más información
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN EMPRESAS: Productividad que se diseña ===== -->
+    <section class="py-20 bg-white" id="empresas">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-2">Organizaciones comprometidas con el bienestar</h2>
+                <p class="text-2xl font-bold text-orange-500 mt-2">La productividad no se exige. Se diseña.</p>
+                <p class="text-gray-500 mt-3 max-w-2xl mx-auto">Y se diseña desde tres frentes que realmente la transforman:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- NODUS -->
+                <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 border border-orange-200 hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🔸</span>
+                        <h3 class="text-xl font-extrabold text-orange-600">NODUS</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-700 mb-2">Liderazgo con pensamiento emprendedor</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Desarrollamos líderes que toman decisiones con criterio, leen su entorno y alinean equipos que responden.
+                    </p>
+                    <p class="text-sm text-gray-600 mt-3 leading-relaxed italic">
+                        Hemos comprobado que <strong>la productividad cambia cuando el liderazgo deja de reaccionar y empieza a construir.</strong>
+                    </p>
+                </div>
+
+                <!-- EDIFICA empresas -->
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-8 border border-yellow-200 hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🔸</span>
+                        <h3 class="text-xl font-extrabold text-yellow-600">EDIFICA</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-700 mb-2">Entorno productivo que sostiene</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">Acompañamos a las personas en su realidad, especialmente cuando su estabilidad está comprometida.</p>
+                    <p class="text-sm text-gray-600 mt-2 font-medium">Trabajamos con:</p>
+                    <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                        <li><i class="fa-solid fa-angle-right text-yellow-500 mr-1"></i>Familiares de colaboradores</li>
+                        <li><i class="fa-solid fa-angle-right text-yellow-500 mr-1"></i>Procesos de outplacement</li>
+                        <li><i class="fa-solid fa-angle-right text-yellow-500 mr-1"></i>Prepensionados</li>
+                        <li><i class="fa-solid fa-angle-right text-yellow-500 mr-1"></i>Comunidades que requieren reactivación productiva</li>
+                    </ul>
+                    <p class="text-sm text-gray-600 mt-3 italic">A través del emprendimiento estructurado, <strong>recuperan dirección, estabilidad y foco.</strong></p>
+                </div>
+
+                <!-- TOP SPEAKERS -->
+                <div class="bg-gradient-to-br from-purple-50 to-fuchsia-50 rounded-2xl p-8 border border-purple-200 hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🔸</span>
+                        <h3 class="text-xl font-extrabold text-purple-600">TOP SPEAKERS</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-gray-700 mb-2">Cultura que moviliza</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Conferencistas, experiencias y espacios que conectan con las personas y activan conversaciones que las empresas necesitan.
+                    </p>
+                    <p class="text-sm text-gray-600 mt-3 italic"><strong>No es solo inspiración.</strong> Es contenido que mueve, alinea y fortalece el compromiso del equipo.</p>
+                    <p class="text-sm text-gray-500 mt-2 italic">La cultura se construye desde lo que las personas viven.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center bg-gradient-to-r from-orange-600 to-purple-600 rounded-2xl p-8">
+                <p class="text-white text-2xl font-extrabold mb-2">Tres frentes. Un mismo resultado:</p>
+                <p class="text-white text-lg font-light opacity-90">empresas más productivas, personas más estables y comprometidas.</p>
+                <p class="text-white mt-4 text-sm opacity-80">Si esto conecta con lo que estás viendo en tu organización...</p>
+                <a href="mailto:eduardodelcastillo@argentinacomparte.com"
+                   class="mt-4 inline-block bg-white text-black font-extrabold px-10 py-3 rounded-full shadow hover:scale-105 transition duration-300">
+                    Hablemos 💬
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN 3: LO QUE HACEMOS ===== -->
+    <section class="py-20 bg-gray-50" id="lo-que-hacemos">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-3">LO QUE HACEMOS</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- EDIFICA -->
+                <div class="bg-white rounded-2xl shadow p-8 flex flex-col gap-4 hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center text-white text-3xl shadow">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-gray-800">EDIFICA</h3>
+                    <p class="text-orange-500 font-semibold text-sm">Programa de Emprendimiento</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        El corazón de Argentina Comparte. EDIFICA es un Programa de Altos Estudios en Emprendimiento que ha permitido que más de <strong>1.200 personas y familias</strong> vuelvan a ser productivas.
+                    </p>
+                    <p class="text-sm text-gray-600">Un programa que combina el pilar <strong>emocional</strong> y el pilar <strong>académico</strong> para formar emprendedores capaces de construir negocios reales y sostenibles.</p>
+                    <p class="text-sm font-semibold text-gray-700">Dirigido a:</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li><i class="fa-solid fa-dot-circle text-orange-400 mr-2 text-xs"></i>Familias de colaboradores</li>
+                        <li><i class="fa-solid fa-dot-circle text-orange-400 mr-2 text-xs"></i>Comunidades específicas</li>
+                        <li><i class="fa-solid fa-dot-circle text-orange-400 mr-2 text-xs"></i>Outplacement y Prepensionados</li>
+                        <li><i class="fa-solid fa-dot-circle text-orange-400 mr-2 text-xs"></i>Familias en reconstrucción económica</li>
+                    </ul>
+                    <a href="https://argentinacomparte.com/programa-edifica/" target="_blank"
+                       class="mt-auto inline-block text-center bg-orange-500 text-white font-bold px-6 py-2 rounded-full hover:bg-orange-600 transition text-sm">
+                        Conocer EDIFICA
+                    </a>
+                </div>
+
+                <!-- TOP SPEAKERS -->
+                <div class="bg-white rounded-2xl shadow p-8 flex flex-col gap-4 hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow">
+                        <i class="fa-solid fa-microphone"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-gray-800">TOP SPEAKERS</h3>
+                    <p class="text-purple-500 font-semibold text-sm">Cultura, liderazgo y bienestar dentro de la empresa</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Nuestro portafolio reúne conferencistas, autores, líderes, artistas, comediantes, deportistas y expertos que llevan a las empresas experiencias que:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Fortalecen liderazgo consciente</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Inspiran propósito</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Reducen la desconexión emocional</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Combaten la renuncia silenciosa</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Mejoran el clima organizacional</li>
+                        <li><i class="fa-solid fa-check text-purple-400 mr-2"></i>Conectan bienestar con productividad</li>
+                    </ul>
+                    <p class="text-sm text-gray-700 italic">Cuando las personas se sienten vistas, valoradas e inspiradas, <strong>la empresa lo siente en los resultados.</strong></p>
+                    <a th:href="@{/top-speakers}"
+                       class="mt-auto inline-block text-center bg-purple-600 text-white font-bold px-6 py-2 rounded-full hover:bg-purple-700 transition text-sm">
+                        Conocer Top Speakers
+                    </a>
+                </div>
+
+                <!-- NODUS -->
+                <div class="bg-white rounded-2xl shadow p-8 flex flex-col gap-4 hover:shadow-xl transition duration-300">
+                    <div class="w-16 h-16 bg-teal-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-gray-800">NODUS</h3>
+                    <p class="text-teal-500 font-semibold text-sm">Liderazgo con mentalidad emprendedora</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        En entornos exigentes, no basta con liderar. Se necesita criterio, lectura del entorno y capacidad de decisión.
+                    </p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        NODUS desarrolla líderes que entienden el negocio, alinean equipos y construyen resultados sostenibles.
+                    </p>
+                    <p class="text-sm text-gray-700 font-semibold italic">No formamos líderes operativos. <strong>Formamos líderes que estructuran productividad.</strong></p>
+                    <a th:href="@{/nodus}"
+                       class="mt-auto inline-block text-center bg-teal-600 text-white font-bold px-6 py-2 rounded-full hover:bg-teal-700 transition text-sm">
+                        Conocer NODUS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN 5: IMPACTO / RESULTADOS ===== -->
+    <section class="py-20 bg-gradient-to-br from-orange-600 to-purple-600 text-white" id="impacto">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold mb-4">NUESTRO IMPACTO</h2>
+            <p class="text-white opacity-80 text-lg mb-14">En 10 años hemos acompañado a:</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-14">
+                <div class="bg-white bg-opacity-20 rounded-2xl p-6 backdrop-blur">
+                    <p class="text-5xl font-black">1.200+</p>
+                    <p class="text-sm mt-2 opacity-90 font-medium">personas y familias en su reconstrucción productiva</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-2xl p-6 backdrop-blur">
+                    <p class="text-5xl font-black">70+</p>
+                    <p class="text-sm mt-2 opacity-90 font-medium">empresas comprometidas con su gente</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-2xl p-6 backdrop-blur">
+                    <p class="text-5xl font-black">65+</p>
+                    <p class="text-sm mt-2 opacity-90 font-medium">mentores y voluntarios al servicio</p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-2xl p-6 backdrop-blur">
+                    <p class="text-5xl font-black">10</p>
+                    <p class="text-sm mt-2 opacity-90 font-medium">años transformando vidas y culturas</p>
+                </div>
+            </div>
+
+            <a href="https://www.youtube.com/@argentinacomparte" target="_blank"
+               class="inline-flex items-center gap-3 bg-white text-black font-extrabold px-8 py-3 rounded-full hover:scale-105 transition duration-300 shadow-lg text-sm">
+                <i class="fa-brands fa-youtube text-red-500 text-xl"></i>
+                Conocer casos reales
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN 7: NUESTRAS ACCIONES ===== -->
+    <section class="py-20 bg-white" id="acciones">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-3">NUESTRAS ACCIONES</h2>
+                <p class="text-gray-500 text-lg">Aquí compartimos algunos proyectos recientes:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Expansión Latinoamérica -->
+                <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-8 border border-blue-200 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-globe-americas"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Expansión a Latinoamérica</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Argentina Comparte expande su misión transformadora a toda Latinoamérica, llevando el modelo EDIFICA a nuevos países y comunidades.
+                    </p>
+                </div>
+
+                <!-- Ecuador -->
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-8 border border-yellow-200 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Ecuasal / Ecuador</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Acompañamiento en procesos de transición familiar a través del emprendimiento estructurado.
+                    </p>
+                </div>
+
+                <!-- Colegios / Empresas aliadas -->
+                <div class="bg-gradient-to-br from-purple-50 to-fuchsia-50 rounded-2xl p-8 border border-purple-200 hover:shadow-lg transition">
+                    <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center text-white text-xl mb-4">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Colegios y Empresas Aliadas</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Formación en mentalidad emprendedora en jóvenes (Ej: J.J. Casas) y talleres, conferencias y procesos de bienestar con empresas aliadas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOBRE NOSOTROS ===== -->
+    <section class="py-20 bg-gray-50" id="sobre-nosotros">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">QUIÉNES SOMOS</h2>
+            <p class="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
+                Somos una comunidad de mentores, coaches, conferencistas y aliados que creen en el poder del propósito, la empatía y el servicio.
+            </p>
+            <p class="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto mt-4">
+                Cada miembro de nuestro equipo aporta su conocimiento y su tiempo para acompañar a emprendedores, familias y empresas en su proceso de transformación.
+            </p>
+            <div class="mt-10">
+                <a th:href="@{/nuestra-historia}"
+                   class="inline-block bg-purple-600 text-white font-extrabold px-10 py-3 rounded-full hover:bg-orange-600 transition duration-300 shadow">
+                    Ver equipo y nuestra historia
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="layout/base :: footer"></footer>
+
+    <!-- Carrusel JS -->
+    <script>
+        let current = 0;
+        const slides = document.getElementById('slides');
+        const total = 3;
+
+        function updateSlide() {
+            slides.style.transform = `translateX(-${current * 100}%)`;
+            document.querySelectorAll('.dot').forEach((d, i) => {
+                d.style.opacity = i === current ? '1' : '0.5';
+            });
+        }
+
+        function nextSlide() {
+            current = (current + 1) % total;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            current = (current - 1 + total) % total;
+            updateSlide();
+        }
+
+        function goToSlide(n) {
+            current = n;
+            updateSlide();
+        }
+
+        // Auto-play
+        setInterval(nextSlide, 5000);
+        updateSlide();
+    </script>
 
 </body>
 </html>

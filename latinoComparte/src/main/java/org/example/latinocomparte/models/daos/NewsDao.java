@@ -7,9 +7,15 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface NewsDao extends JpaRepository<NewsEntity, Long> {
+
+    List<NewsEntity> findByEstado(String estado);
+
     List<NewsEntity> findByTituloContainingIgnoreCase(String titulo);
+
     List<NewsEntity> findByCategoriaContainingIgnoreCase(String categoria);
+
     List<NewsEntity> findByAutorContainingIgnoreCase(String autor);
+
     @Query("""
         SELECT n FROM NewsEntity n
         WHERE (:titulo IS NULL OR :titulo = '' 

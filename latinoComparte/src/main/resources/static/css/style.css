@@ -1,19 +1,15 @@
 /* ====== RESETEO BÁSICO ====== */
-* { box-sizing: border-box; }  /* reseteo básico de box-sizing, significa que el padding y border se suman al ancho/alto */
-html, body { height: 100%; }   /* reseteo de altura del html y body para que ocupen */
-.site-header{
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 
-    background: #787474;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    gap: 20px;
-}
+/* Carrusel */
+#carrusel { min-height: 420px; }
+#slides { display: flex; }
+.slide { min-width: 100%; }
 
-.logo{
-    height: 80px;
-    inline-size: auto;
-    display: block;
-}
+/* Navbar dropdown */
+.group:hover .group-hover\:opacity-100 { opacity: 1; }
+.group:hover .group-hover\:visible { visibility: visible; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }

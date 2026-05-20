@@ -1,68 +1,132 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latino Comparte Argentina</title>
+    <title>Argentina Comparte</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<nav th:fragment="navbar" class="bg-white-600 text-purple-900 px-6 py-3 flex items-center gap-2 text-sm tracking-widest shadow-md">
-    <img th:src="@{/images/logo-argentina.jpg}" alt="logo" class="h-16 w-auto mr-4">
-    <a th:href="@{/}"
-       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-300
-              hover:bg-gradient-to-r hover:from-fuchsia-600 hover:to-purple-600
-              hover:text-white hover:scale-105"
-       th:classappend="${activeMenu == 'home'} ? ' bg-gradient-to-r from-fuchsia-700 to-purple-700 text-white shadow-lg' : ''">
-        <i class="fa-solid fa-house"></i>
-        <span>INICIO</span>
-    </a>
-    <a th:href="@{/noticias}"
-       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-300
-              hover:bg-gradient-to-r hover:from-fuchsia-600 hover:to-purple-600
-              hover:text-white hover:scale-105"
-       th:classappend="${activeMenu == 'noticias'} ? ' bg-gradient-to-r from-fuchsia-700 to-purple-700 text-white shadow-lg' : ''">
-        <i class="fa-solid fa-newspaper"></i>
-        <span>NOTICIAS</span>
-    </a>
-    <a th:href="@{/testimonios}"
-       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-300
-              hover:bg-gradient-to-r hover:from-fuchsia-600 hover:to-purple-600
-              hover:text-white hover:scale-105"
-       th:classappend="${activeMenu == 'testimonios'} ? 'bg-gradient-to-r from-fuchsia-700 to-purple-700 text-white shadow-lg' : ''">
-        <i class="fa-solid fa-comment-dots"></i>
-        <span>TESTIMONIOS</span>
-    </a>
-    <a th:href="@{/contactos}"
-       class="flex items-center gap-2 px-4 py-2 rounded-lg transition duration-300
-              hover:bg-gradient-to-r hover:from-fuchsia-600 hover:to-purple-600
-              hover:text-white hover:scale-105"
-       th:classappend="${activeMenu == 'contactos'} ? ' bg-gradient-to-r from-fuchsia-700 to-purple-700 text-white shadow-lg' : ''">
-        <i class="fa-solid fa-address-book"></i>
-        <span>CONTACTOS</span>
-    </a>
+<!-- ================= NAVBAR ================= -->
+<nav th:fragment="navbar" class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-1 flex-wrap">
 
-    <span th:if="${session.usuario != null}" class="ml-auto flex items-center gap-2">
-        <i class="fa-solid fa-user"></i>
-            <span th:text="${session.usuario.nombre}"></span>
+        <!-- Logo -->
+        <a th:href="@{/}" class="mr-6">
+            <img th:src="@{/images/logo-argentina.jpg}" class="h-14 w-auto">
+        </a>
 
-        <a th:href="@{/logout}"
-       class="ml-3 text-red-600 hover:underline">
-        SALIR
-         </a>
-    </span>
+        <!-- INICIO -->
+        <a th:href="@{/}"
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 transition
+                  hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white hover:scale-105"
+           th:classappend="${activeMenu == 'home'} ? ' bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg scale-105' : ''">
+            <i class="fa-solid fa-house"></i> INICIO
+        </a>
 
-    <a th:if="${session.usuario == null}"
-       th:href="@{/login}"
-       class="ml-auto">
-        LOGIN
-    </a>
+        <!-- PROGRAMAS -->
+        <div class="relative group">
+            <button class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 transition
+                           hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white hover:scale-105">
+                <i class="fa-solid fa-briefcase"></i> PROGRAMAS
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
 
+            <div class="absolute left-0 mt-1 w-52 bg-white rounded-xl shadow-lg border opacity-0 invisible
+                        group-hover:opacity-100 group-hover:visible transition">
+                <a th:href="@{/programa-edifica}" class="block px-5 py-3 text-sm hover:bg-purple-50 hover:text-purple-600">
+                    <i class="fa-solid fa-seedling mr-2 text-purple-500"></i> EDIFICA
+                </a>
+                <a th:href="@{/top-speakers}" class="block px-5 py-3 text-sm hover:bg-purple-50 hover:text-purple-600">
+                    <i class="fa-solid fa-microphone mr-2 text-purple-500"></i> TOP SPEAKERS
+                </a>
+                <a th:href="@{/nodus}" class="block px-5 py-3 text-sm hover:bg-purple-50 hover:text-purple-600">
+                    <i class="fa-solid fa-chart-line mr-2 text-purple-500"></i> NODUS
+                </a>
+            </div>
+        </div>
+
+        <!-- HISTORIA -->
+        <a th:href="@{/nuestra-historia}"
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 transition
+                  hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white hover:scale-105">
+            <i class="fa-solid fa-clock-rotate-left"></i> HISTORIA
+        </a>
+
+        <!-- NOTICIAS -->
+        <a th:href="@{/noticias}"
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 transition
+                  hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white hover:scale-105">
+            <i class="fa-solid fa-newspaper"></i> NOTICIAS
+        </a>
+
+        <!-- TESTIMONIOS -->
+        <a th:href="@{/testimonios}"
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 transition
+                  hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white hover:scale-105">
+            <i class="fa-solid fa-comment-dots"></i> TESTIMONIOS
+        </a>
+
+        <!-- CONTACTO -->
+        <a th:href="@{/contactos}"
+           class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 transition
+                  hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white hover:scale-105">
+            <i class="fa-solid fa-address-book"></i> CONTACTO
+        </a>
+
+        <!-- USUARIO -->
+        <span th:if="${session.usuario != null}" class="ml-auto flex items-center gap-2 text-sm text-gray-700">
+            <i class="fa-solid fa-user text-purple-500"></i>
+            <span th:text="${session.usuario.nombre}" class="font-semibold"></span>
+
+            <a th:href="@{/logout}" class="ml-3 text-red-500 hover:underline font-semibold">SALIR</a>
+        </span>
+
+        <!-- LOGIN -->
+        <a th:if="${session.usuario == null}"
+           th:href="@{/login}"
+           class="ml-auto text-sm font-semibold text-purple-600 hover:text-purple-800">
+            <i class="fa-solid fa-right-to-bracket"></i> LOGIN
+        </a>
+    </div>
 </nav>
 
-<body>
-</body>
+<!-- ================= FOOTER ================= -->
+<footer th:fragment="footer" class="bg-gray-900 text-gray-300 mt-16">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
+
+        <div>
+            <img th:src="@{/images/logo-argentina.jpg}" class="h-14 brightness-150">
+            <p class="text-sm mt-4 text-gray-400">
+                Transformamos vidas a través del emprendimiento.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="text-white font-bold mb-4">PROGRAMAS</h4>
+            <ul class="space-y-2">
+                <li><a href="#" class="hover:text-purple-400">EDIFICA</a></li>
+                <li><a href="#" class="hover:text-purple-400">TOP SPEAKERS</a></li>
+                <li><a href="#" class="hover:text-purple-400">NODUS</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="text-white font-bold mb-4">CONTACTO</h4>
+            <p class="text-sm">info@argentinacomparte.com</p>
+        </div>
+
+    </div>
+
+    <div class="border-t border-gray-800 text-center py-4 text-xs text-gray-500">
+        © 2025 Argentina Comparte
+    </div>
+</footer>
+
+<body></body>
 </html>
