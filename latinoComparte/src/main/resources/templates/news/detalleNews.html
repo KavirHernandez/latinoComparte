@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<!--
+    DETALLE DE NOTICIA: muestra el contenido completo de una noticia.
+    Accesible para todos los usuarios (admin e invitados).
+    Implementa HU-14: "Acceso a detalle de noticia".
+-->
+<body class="bg-gray-50 min-h-screen">
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <main class="max-w-3xl mx-auto px-6 py-12">
+        <!-- Botón de regreso al listado -->
+        <a th:href="@{/noticias}" class="inline-flex items-center gap-2 text-orange-500 hover:text-orange-700 font-semibold mb-6 transition">
+            <i class="fa-solid fa-arrow-left"></i> Volver a Actualidad
+        </a>
+
+        <div class="bg-white rounded-2xl shadow p-8">
+            <!-- Imagen principal de la noticia -->
+            <img th:if="${noticia.imagenUrl != null and !#strings.isEmpty(noticia.imagenUrl)}"
+                 th:src="${noticia.imagenUrl}" alt="imagen noticia"
+                 class="w-full h-64 object-cover rounded-xl mb-6">
+
+            <!-- Badge de categoría -->
+            <span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full"
+                  th:text="${noticia.categoria}"></span>
+
+            <!-- Título de la noticia -->
+            <h1 class="text-3xl font-extrabold text-gray-800 mt-4 mb-2" th:text="${noticia.titulo}"></h1>
+
+            <!-- Metadata: fecha y autor -->
+            <p class="text-sm text-gray-400 mb-6"
+               th:text="${noticia.fechaPublicacion} + ' · Por ' + ${noticia.autor}"></p>
+
+            <!-- Separador -->
+            <hr class="border-gray-100 mb-6">
+
+            <!-- Contenido completo de la noticia -->
+            <div class="prose max-w-none text-gray-700 leading-relaxed text-sm whitespace-pre-line"
+                 th:text="${noticia.contenido}"></div>
+        </div>
+    </main>
+
+    <footer th:replace="layout/base :: footer"></footer>
+</body>
+</html>

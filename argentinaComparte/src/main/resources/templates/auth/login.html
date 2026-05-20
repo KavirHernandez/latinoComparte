@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<!--
+    PÁGINA DE LOGIN: formulario de autenticación.
+    Permite ingresar como administrador (usuario registrado en BD)
+    o como INVITADO (acceso limitado sin contraseña).
+-->
+<body class="bg-gradient-to-br from-orange-50 to-yellow-50 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white rounded-2xl shadow-xl p-10 w-full max-w-md">
+
+        <!-- Encabezado con logo y nombre del portal -->
+        <div class="flex flex-col items-center mb-8">
+            <img th:src="@{/images/logo-argentina.jpg}" alt="Argentina Comparte" class="h-20 w-auto mb-4">
+            <h1 class="text-2xl font-extrabold text-orange-600 tracking-widest">ARGENTINA COMPARTE</h1>
+            <p class="text-gray-500 text-sm mt-1">Ingresa con tu cuenta</p>
+        </div>
+
+        <!-- Mensaje de error si las credenciales son incorrectas -->
+        <div th:if="${error}"
+             class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <i class="fa-solid fa-circle-exclamation mr-2"></i>
+            <span th:text="${error}"></span>
+        </div>
+
+        <!-- Formulario de login con email y contraseña -->
+        <form th:action="@{/login}" method="post" class="space-y-5">
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                    <i class="fa-solid fa-envelope mr-1 text-orange-400"></i> Correo electrónico
+                </label>
+                <input type="email"
+                       name="email"
+                       required
+                       placeholder="ejemplo@correo.com"
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm
+                              focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent">
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                    <i class="fa-solid fa-lock mr-1 text-orange-400"></i> Contraseña
+                </label>
+                <input type="password"
+                       name="contrasena"
+                       required
+                       placeholder="••••••••"
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm
+                              focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent">
+            </div>
+
+            <!-- Botón principal de login -->
+            <button type="submit"
+                    class="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold
+                           py-2 rounded-lg hover:from-orange-600 hover:to-yellow-500 transition duration-300
+                           tracking-widest text-sm">
+                INGRESAR
+            </button>
+
+        </form>
+
+        <!-- Separador visual -->
+        <div class="flex items-center my-5">
+            <div class="flex-1 h-px bg-gray-200"></div>
+            <span class="px-3 text-xs text-gray-400">o continúa como</span>
+            <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <!--
+            Botón de acceso como INVITADO:
+            Llama a /login/invitado que crea una sesión con rol INVITADO.
+            Los invitados ven el sitio pero NO pueden crear/editar/eliminar contenido.
+        -->
+        <a th:href="@{/login/invitado}"
+           class="block w-full text-center border-2 border-orange-300 text-orange-600 font-bold
+                  py-2 rounded-lg hover:bg-orange-50 transition duration-300 tracking-widest text-sm">
+            <i class="fa-solid fa-user-secret mr-2"></i> ENTRAR COMO INVITADO
+        </a>
+
+        <!-- Nota informativa sobre acceso invitado -->
+        <p class="text-center text-xs text-gray-400 mt-3">
+            <i class="fa-solid fa-circle-info mr-1"></i>
+            El acceso como invitado tiene funciones limitadas.
+        </p>
+
+    </div>
+
+</body>
+</html>

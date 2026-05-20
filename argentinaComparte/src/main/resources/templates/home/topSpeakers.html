@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<body class="bg-white min-h-screen">
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <section class="bg-gradient-to-br from-purple-700 to-fuchsia-500 text-white py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1 class="text-5xl font-extrabold mb-4">TOP SPEAKERS</h1>
+            <p class="text-2xl font-light opacity-90">Cultura, liderazgo y bienestar dentro de la empresa</p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6 space-y-12">
+
+            <p class="text-xl text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
+                Nuestro portafolio reúne conferencistas, autores, líderes, artistas, comediantes, deportistas y expertos
+                que llevan a las empresas <strong>experiencias que transforman</strong>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-start gap-4 p-5 bg-purple-50 rounded-xl">
+                    <i class="fa-solid fa-star text-purple-500 mt-1 text-xl"></i>
+                    <div><h4 class="font-bold text-gray-800">Fortalecen liderazgo consciente</h4><p class="text-sm text-gray-600 mt-1">Líderes que inspiran desde el ser y construyen culturas de alto desempeño.</p></div>
+                </div>
+                <div class="flex items-start gap-4 p-5 bg-fuchsia-50 rounded-xl">
+                    <i class="fa-solid fa-lightbulb text-fuchsia-500 mt-1 text-xl"></i>
+                    <div><h4 class="font-bold text-gray-800">Inspiran propósito</h4><p class="text-sm text-gray-600 mt-1">Conectan a las personas con el sentido profundo de su trabajo.</p></div>
+                </div>
+                <div class="flex items-start gap-4 p-5 bg-pink-50 rounded-xl">
+                    <i class="fa-solid fa-heart text-pink-500 mt-1 text-xl"></i>
+                    <div><h4 class="font-bold text-gray-800">Reducen la desconexión emocional</h4><p class="text-sm text-gray-600 mt-1">Combaten la renuncia silenciosa y mejoran el clima organizacional.</p></div>
+                </div>
+                <div class="flex items-start gap-4 p-5 bg-violet-50 rounded-xl">
+                    <i class="fa-solid fa-users text-violet-500 mt-1 text-xl"></i>
+                    <div><h4 class="font-bold text-gray-800">Conectan bienestar con productividad</h4><p class="text-sm text-gray-600 mt-1">Elevan la motivación y el sentido de pertenencia del equipo.</p></div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-700 to-fuchsia-500 rounded-2xl p-10 text-white text-center">
+                <p class="text-xl font-bold mb-2">Cuando las personas se sienten vistas, valoradas e inspiradas,</p>
+                <p class="text-2xl font-extrabold">la empresa lo siente en los resultados.</p>
+                <a href="mailto:eduardodelcastillo@argentinacomparte.com"
+                   class="mt-6 inline-block bg-white text-purple-700 font-extrabold px-10 py-3 rounded-full hover:scale-105 transition duration-300 shadow">
+                    Quiero más información
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="layout/base :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<body class="bg-white min-h-screen">
+
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <!-- Hero Historia -->
+    <section class="bg-gradient-to-br from-blue-600 to-green-400 text-white py-24">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-semibold tracking-widest mb-6">
+                🏆 10 AÑOS TRANSFORMANDO VIDAS
+            </div>
+            <h1 class="text-5xl font-extrabold leading-tight mb-6">NUESTRA HISTORIA</h1>
+            <p class="text-2xl font-light opacity-90">Argentina Comparte nació de una historia real.<br>Una historia de pérdida, fe y reconstrucción.</p>
+        </div>
+    </section>
+
+    <!-- Historia principal -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+
+            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-6">
+
+                <p class="text-xl">
+                    Sus cofundadores, <strong>Carolina Ruiz Herrera</strong> y <strong>Eduardo Del Castillo</strong>, vivieron en carne propia lo que significa perderlo todo y aún así levantarse.
+                </p>
+
+                <div class="bg-teal-50 border-l-4 border-teal-500 p-6 rounded-r-2xl my-8">
+                    <p class="text-xl font-bold text-teal-700 italic">
+                        "Cuando una persona vuelve a sentirse productiva, vuelve a vivir."
+                    </p>
+                </div>
+
+                <p>
+                    Guiados por Dios y por un profundo deseo de servir, crearon una organización para acompañar a quienes enfrentan la llamada <em>pobreza oculta</em>: personas y familias que, a pesar de su esfuerzo, vieron quebrarse su estabilidad emocional, económica y profesional.
+                </p>
+
+                <p>
+                    Durante <strong>10 años</strong>, Argentina Comparte ha acompañado a miles de personas a reencontrar su propósito productivo y a reconstruir su vida desde el emprendimiento.
+                </p>
+
+                <p>
+                    Hoy, somos una organización social autosostenible que impulsa:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                    <div class="flex items-start gap-3 bg-orange-50 p-4 rounded-xl">
+                        <i class="fa-solid fa-seedling text-orange-500 mt-1"></i>
+                        <span class="font-semibold text-gray-700">Emprendimiento con propósito</span>
+                    </div>
+                    <div class="flex items-start gap-3 bg-purple-50 p-4 rounded-xl">
+                        <i class="fa-solid fa-heart text-purple-500 mt-1"></i>
+                        <span class="font-semibold text-gray-700">Bienestar empresarial</span>
+                    </div>
+                    <div class="flex items-start gap-3 bg-teal-50 p-4 rounded-xl">
+                        <i class="fa-solid fa-building text-teal-500 mt-1"></i>
+                        <span class="font-semibold text-gray-700">Cultura organizacional</span>
+                    </div>
+                    <div class="flex items-start gap-3 bg-yellow-50 p-4 rounded-xl">
+                        <i class="fa-solid fa-star text-yellow-500 mt-1"></i>
+                        <span class="font-semibold text-gray-700">Liderazgo humano</span>
+                    </div>
+                    <div class="flex items-start gap-3 bg-green-50 p-4 rounded-xl md:col-span-2">
+                        <i class="fa-solid fa-chart-line text-green-500 mt-1"></i>
+                        <span class="font-semibold text-gray-700">Productividad sostenible</span>
+                    </div>
+                </div>
+
+                <div class="text-center bg-gradient-to-r from-blue-600 to-green-400 rounded-2xl p-10 text-white mt-10">
+                    <p class="text-2xl font-bold mb-2">Seguimos creciendo porque creemos en una verdad profunda:</p>
+                    <p class="text-xl mt-4"><strong>Cuando una persona se transforma, su familia cambia.</strong></p>
+                    <p class="text-xl"><strong>Y cuando las familias están bien, las empresas prosperan.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="layout/base :: footer"></footer>
+
+</body>
+</html>

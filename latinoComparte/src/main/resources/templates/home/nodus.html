@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<body class="bg-white min-h-screen">
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <section class="bg-gradient-to-br from-teal-600 to-emerald-400 text-white py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h1 class="text-5xl font-extrabold mb-4">NODUS</h1>
+            <p class="text-2xl font-light opacity-90">Liderazgo con mentalidad emprendedora</p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-6 space-y-12">
+
+            <div class="text-center max-w-3xl mx-auto">
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    En entornos exigentes, <strong>no basta con liderar</strong>. Se necesita criterio, lectura del entorno y capacidad de decisión.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-teal-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-teal-700 mb-4"><i class="fa-solid fa-brain mr-2"></i>Líderes con criterio</h3>
+                    <p class="text-gray-600">Desarrollamos líderes que entienden el negocio, leen su entorno y toman decisiones que construyen resultados sostenibles.</p>
+                </div>
+                <div class="bg-emerald-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-emerald-700 mb-4"><i class="fa-solid fa-people-arrows mr-2"></i>Equipos alineados</h3>
+                    <p class="text-gray-600">Formamos líderes capaces de alinear equipos que responden, comprometidos con la productividad y el propósito colectivo.</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-teal-600 to-emerald-400 rounded-2xl p-10 text-white text-center">
+                <p class="text-2xl font-bold mb-2">No formamos líderes operativos.</p>
+                <p class="text-2xl font-extrabold">Formamos líderes que estructuran productividad.</p>
+                <a href="mailto:eduardodelcastillo@argentinacomparte.com"
+                   class="mt-6 inline-block bg-white text-teal-700 font-extrabold px-10 py-3 rounded-full hover:scale-105 transition duration-300 shadow">
+                    Quiero más información
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="layout/base :: footer"></footer>
+</body>
+</html>

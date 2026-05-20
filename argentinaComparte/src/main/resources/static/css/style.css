@@ -1,0 +1,15 @@
+/* ====== RESETEO BÁSICO ====== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+/* Carrusel */
+#carrusel { min-height: 420px; }
+#slides { display: flex; }
+.slide { min-width: 100%; }
+
+/* Navbar dropdown */
+.group:hover .group-hover\:opacity-100 { opacity: 1; }
+.group:hover .group-hover\:visible { visibility: visible; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }

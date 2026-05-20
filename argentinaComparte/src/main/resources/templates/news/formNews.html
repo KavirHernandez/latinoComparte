@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<!--
+    FORMULARIO DE NOTICIAS: usado para CREAR y EDITAR noticias.
+    Solo accesible para administradores (el controlador valida el rol).
+    Implementa HU-08 (crear) y HU-09 (editar).
+-->
+<body class="bg-gray-50 min-h-screen">
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <main class="max-w-2xl mx-auto px-6 py-10">
+
+        <!-- Encabezado con botón de regreso y título dinámico -->
+        <div class="flex items-center gap-3 mb-8">
+            <a th:href="@{/noticias}" class="text-gray-400 hover:text-orange-500 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h1 class="text-3xl font-bold text-gray-800"
+                th:text="${noticia.idNoti != null} ? 'Editar Noticia' : 'Nueva Noticia'"></h1>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-8">
+            <!--
+                Acción dinámica del formulario:
+                  - Noticia nueva (sin ID) → POST /noticias/guardar
+                  - Noticia existente (con ID) → POST /noticias/actualizar
+            -->
+            <form th:action="${noticia.idNoti != null} ? @{/noticias/actualizar} : @{/noticias/guardar}"
+                  th:object="${noticia}"
+                  method="post"
+                  class="flex flex-col gap-5">
+
+                <!-- Campos ocultos: preservan el ID y la fecha en edición -->
+                <input type="hidden" th:field="*{idNoti}">
+                <input type="hidden" th:field="*{fechaPublicacion}">
+
+                <!-- Campo: Título (OBLIGATORIO, máx 150 chars) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Título <span class="text-red-500">*</span></label>
+                    <input type="text" th:field="*{titulo}" maxlength="150" required
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="Título de la noticia">
+                </div>
+
+                <!-- Campo: Resumen (OBLIGATORIO, máx 250 chars) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Resumen <span class="text-red-500">*</span></label>
+                    <textarea th:field="*{resumen}" maxlength="250" required rows="3"
+                              class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+                              placeholder="Breve descripción de la noticia..."></textarea>
+                </div>
+
+                <!-- Campo: Contenido completo (OBLIGATORIO) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Contenido <span class="text-red-500">*</span></label>
+                    <textarea th:field="*{contenido}" required rows="6"
+                              class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+                              placeholder="Contenido completo de la noticia..."></textarea>
+                </div>
+
+                <!-- Campo: URL de imagen principal (opcional) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">
+                        URL Imagen <span class="text-gray-400 text-xs">(opcional)</span>
+                    </label>
+                    <input type="url" th:field="*{imagenUrl}" maxlength="200"
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="https://...">
+                </div>
+
+                <!-- Campo: Autor (OBLIGATORIO, máx 50 chars) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Autor <span class="text-red-500">*</span></label>
+                    <input type="text" th:field="*{autor}" maxlength="50" required
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="Nombre del autor">
+                </div>
+
+                <!-- Campo: Categoría (OBLIGATORIO) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Categoría <span class="text-red-500">*</span></label>
+                    <input type="text" th:field="*{categoria}" maxlength="20" required
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="Ej: Eventos, Educación...">
+                </div>
+
+                <!--
+                    Campo: Estado de la noticia.
+                    BORRADOR: solo la ve el admin.
+                    PUBLICADO: la ven todos los visitantes.
+                -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Estado <span class="text-red-500">*</span></label>
+                    <select th:field="*{estado}" required
+                            class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                        <option value="">— Seleccionar estado —</option>
+                        <option value="BORRADOR">Borrador</option>
+                        <option value="PUBLICADO">Publicado</option>
+                    </select>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="flex gap-3 pt-2">
+                    <button type="submit"
+                            class="flex-1 bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-2 rounded-lg text-sm tracking-widest hover:from-orange-600 hover:to-yellow-500 transition duration-200 font-bold">
+                        GUARDAR
+                    </button>
+                    <a th:href="@{/noticias}"
+                       class="flex-1 text-center border border-gray-300 text-gray-600 py-2 rounded-lg text-sm hover:bg-gray-50 transition duration-200">
+                        CANCELAR
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer th:replace="layout/base :: footer"></footer>
+</body>
+</html>

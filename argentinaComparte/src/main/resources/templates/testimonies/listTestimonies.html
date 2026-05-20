@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<!--
+    LISTA DE TESTIMONIOS: muestra todos los testimonios registrados.
+    - Todos los usuarios (admin, invitados) pueden VER los testimonios.
+    - Solo ADMINISTRADORES pueden ver los botones de "+ NUEVO", "Editar" y "Eliminar".
+    - Los INVITADOS ven un banner informativo si intentan acceder a funciones restringidas.
+-->
+<body class="bg-gray-50 min-h-screen">
+
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <!-- Encabezado de sección con degradado naranja -->
+    <section class="bg-gradient-to-br from-orange-600 to-purple-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <div>
+                <h1 class="text-4xl font-extrabold">TESTIMONIOS</h1>
+                <p class="opacity-80 mt-1">Historias reales de transformación en Argentina</p>
+            </div>
+            <!--
+                Botón "+ NUEVO": SOLO visible para ADMINISTRADORES (no invitados).
+                Condición: usuario logueado Y rol distinto de INVITADO.
+            -->
+            <a th:if="${session.usuario != null and session.usuario.rol != null and session.usuario.rol.rol != 'INVITADO'}"
+               th:href="@{/testimonios/nuevo}"
+               class="bg-white text-black font-bold px-6 py-2 rounded-full hover:scale-105 transition text-sm shadow">
+                + NUEVO
+            </a>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+
+        <!--
+            Banner de acceso denegado: aparece cuando un invitado intenta
+            realizar una acción restringida (crear, editar, eliminar).
+            Se activa con el parámetro URL ?accesoDenegado=true
+        -->
+        <div th:if="${param.accesoDenegado}"
+             class="mb-6 bg-yellow-50 border border-yellow-300 text-yellow-800 px-5 py-4 rounded-xl flex items-center gap-3">
+            <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-xl"></i>
+            <div>
+                <p class="font-bold">Acceso restringido</p>
+                <p class="text-sm">Esta función está disponible solo para administradores. Iniciá sesión con tu cuenta para acceder.</p>
+            </div>
+        </div>
+
+        <!-- Mensaje cuando no hay testimonios registrados -->
+        <div th:if="${#lists.isEmpty(testimonios)}"
+             class="text-center text-gray-400 py-20 text-lg">
+            No hay testimonios registrados aún.
+        </div>
+
+        <!-- Grid de tarjetas de testimonios -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="t : ${testimonios}"
+                 class="bg-white rounded-2xl shadow p-6 flex flex-col gap-3 hover:shadow-xl transition duration-300">
+
+                <!-- Foto del autor y su nombre/cargo -->
+                <div class="flex items-center gap-4">
+                    <!-- Si tiene URL de imagen, la muestra; si no, muestra un ícono genérico -->
+                    <img th:if="${t.imagenUrl != null and !#strings.isEmpty(t.imagenUrl)}"
+                         th:src="${t.imagenUrl}" alt="foto"
+                         class="w-14 h-14 rounded-full object-cover border-2 border-orange-200">
+                    <div th:if="${t.imagenUrl == null or #strings.isEmpty(t.imagenUrl)}"
+                         class="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-orange-400 text-xl">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800" th:text="${t.nombreTest}"></p>
+                        <p class="text-sm text-orange-500 font-medium" th:text="${t.cargoEmpresa}"></p>
+                    </div>
+                </div>
+
+                <!-- Texto del testimonio entre comillas -->
+                <p class="text-gray-600 text-sm italic leading-relaxed" th:text="'&quot;' + ${t.opinion} + '&quot;'"></p>
+
+                <!-- Links a redes sociales del autor (solo si están cargados) -->
+                <div class="flex gap-3 text-gray-400 text-sm">
+                    <a th:if="${t.instagramUrl != null and !#strings.isEmpty(t.instagramUrl)}"
+                       th:href="${t.instagramUrl}" target="_blank"
+                       class="hover:text-pink-500 transition">
+                        <i class="fa-brands fa-instagram"></i> Instagram
+                    </a>
+                    <a th:if="${t.facebookUrl != null and !#strings.isEmpty(t.facebookUrl)}"
+                       th:href="${t.facebookUrl}" target="_blank"
+                       class="hover:text-blue-600 transition">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </a>
+                </div>
+
+                <!--
+                    Botones Editar y Eliminar: SOLO visibles para ADMINISTRADORES.
+                    Los invitados NO ven estos botones.
+                -->
+                <div th:if="${session.usuario != null and session.usuario.rol != null and session.usuario.rol.rol != 'INVITADO'}"
+                     class="flex gap-2 mt-auto pt-3 border-t border-gray-100">
+                    <a th:href="@{/testimonios/editar/{id}(id=${t.idTest})}"
+                       class="flex-1 text-center bg-gray-100 text-gray-700 px-3 py-2 rounded-lg text-sm hover:bg-gray-200 transition">
+                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                    </a>
+                    <a th:href="@{/testimonios/eliminar/{id}(id=${t.idTest})}"
+                       onclick="return confirm('¿Eliminar este testimonio?')"
+                       class="flex-1 text-center bg-red-50 text-red-600 px-3 py-2 rounded-lg text-sm hover:bg-red-100 transition">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer th:replace="layout/base :: footer"></footer>
+</body>
+</html>

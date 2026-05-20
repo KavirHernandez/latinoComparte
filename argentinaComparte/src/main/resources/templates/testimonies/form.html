@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/base :: head"></head>
+<!--
+    FORMULARIO DE TESTIMONIOS: usado tanto para CREAR como para EDITAR.
+    El título y la acción del formulario cambian según si el testimonio tiene ID o no:
+      - Sin ID (nuevo):    título "Nuevo Testimonio",  POST a /testimonios/guardar
+      - Con ID (editar):   título "Editar Testimonio", POST a /testimonios/actualizar
+-->
+<body class="bg-gray-50 min-h-screen">
+
+    <nav th:replace="layout/base :: navbar"></nav>
+
+    <main class="max-w-2xl mx-auto px-6 py-10">
+
+        <!-- Encabezado con flecha de regreso y título dinámico -->
+        <div class="flex items-center gap-3 mb-8">
+            <a th:href="@{/testimonios}" class="text-gray-400 hover:text-orange-500 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h1 class="text-3xl font-bold text-gray-800"
+                th:text="${testimonio.idTest != null} ? 'Editar Testimonio' : 'Nuevo Testimonio'"></h1>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-8">
+            <!--
+                Acción dinámica:
+                  - Si el testimonio ya tiene ID → PUT (actualizar)
+                  - Si es nuevo → POST (guardar)
+                El campo oculto "idTest" transporta el ID al controlador en el caso de edición.
+            -->
+            <form th:action="${testimonio.idTest != null} ? @{/testimonios/actualizar} : @{/testimonios/guardar}"
+                  th:object="${testimonio}"
+                  method="post"
+                  class="flex flex-col gap-5">
+
+                <!-- Campo oculto: ID del testimonio (null en creación, valor en edición) -->
+                <input type="hidden" th:field="*{idTest}">
+                <!-- Campo oculto: preserva la fecha original al editar -->
+                <input type="hidden" th:field="*{fechaCreacion}">
+
+                <!-- Campo: Nombre del autor (OBLIGATORIO) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Nombre <span class="text-red-500">*</span></label>
+                    <input type="text" th:field="*{nombreTest}" maxlength="50" required
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="Nombre del autor">
+                </div>
+
+                <!-- Campo: Cargo o empresa del autor (OBLIGATORIO) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Cargo / Empresa <span class="text-red-500">*</span></label>
+                    <input type="text" th:field="*{cargoEmpresa}" maxlength="50" required
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="Ej: CEO en Empresa S.A.">
+                </div>
+
+                <!-- Campo: Texto del testimonio (OBLIGATORIO) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">Testimonio <span class="text-red-500">*</span></label>
+                    <textarea th:field="*{opinion}" maxlength="250" required rows="4"
+                              class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+                              placeholder="Opinión o testimonio..."></textarea>
+                </div>
+
+                <!-- Campo: URL de imagen (OPCIONAL) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">
+                        URL de imagen <span class="text-gray-400 text-xs">(opcional)</span>
+                    </label>
+                    <input type="url" th:field="*{imagenUrl}" maxlength="200"
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="https://...">
+                </div>
+
+                <!-- Campo: URL de Instagram (OPCIONAL) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">
+                        Instagram <span class="text-gray-400 text-xs">(opcional)</span>
+                    </label>
+                    <input type="text" th:field="*{instagramUrl}" maxlength="250"
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="https://instagram.com/...">
+                </div>
+
+                <!-- Campo: URL de Facebook (OPCIONAL) -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-medium text-gray-700">
+                        Facebook <span class="text-gray-400 text-xs">(opcional)</span>
+                    </label>
+                    <input type="text" th:field="*{facebookUrl}" maxlength="250"
+                           class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           placeholder="https://facebook.com/...">
+                </div>
+
+                <!-- Botones de acción: GUARDAR y CANCELAR -->
+                <div class="flex gap-3 pt-2">
+                    <button type="submit"
+                            class="flex-1 bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-2 rounded-lg text-sm tracking-widest hover:from-orange-600 hover:to-yellow-500 transition duration-200 font-bold">
+                        GUARDAR
+                    </button>
+                    <a th:href="@{/testimonios}"
+                       class="flex-1 text-center border border-gray-300 text-gray-600 py-2 rounded-lg text-sm hover:bg-gray-50 transition duration-200">
+                        CANCELAR
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+    <footer th:replace="layout/base :: footer"></footer>
+</body>
+</html>
